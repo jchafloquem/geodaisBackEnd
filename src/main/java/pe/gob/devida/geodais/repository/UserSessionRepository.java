@@ -14,4 +14,6 @@ public interface UserSessionRepository extends JpaRepository<UserSession, Long> 
     Optional<UserSession> findByLoginAndFechaHoraSalidaIsNull(String login);
 
 	List<UserSession> findByFechaHoraSalidaIsNotNullOrderByFechaHoraIngresoDesc();
+
+	
 }

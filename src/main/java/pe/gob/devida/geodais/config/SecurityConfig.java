@@ -19,9 +19,13 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 
                 .requestMatchers(
+                    
                     "/api/auth/login",
                     "/api/auth/logout",
-                    "/api/mapas/capa/**" 
+                    "/api/mapas/capa/**",
+                    "/v3/api-docs/**",      
+                    "/swagger-ui/**",      
+                    "/swagger-ui.html"
                 ).permitAll()
                 
                 .requestMatchers("/api/**").authenticated()

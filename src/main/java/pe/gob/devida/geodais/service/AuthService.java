@@ -36,6 +36,7 @@ public class AuthService {
     }
 
     
+	
 	@SuppressWarnings("null")
 	@Transactional
     public AuthResponse authenticate(AuthRequest request) {

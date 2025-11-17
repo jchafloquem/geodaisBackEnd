@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API GeoDAIS - Módulo de Sesiones")
-                        .version("1.0")
+                        .title("API GeoDAIS - Módulo de Seguridad")
+                        .version("1.0.0")
                         .description("Documentación de la API REST para la gestión de autenticación, sesiones de usuario y reportes de uso del sistema GeoDAIS."));
     }
 }
