@@ -20,6 +20,7 @@ public class SecurityConfig {
                 
                 .requestMatchers(
                     "/api/auth/login",
+                    "/api/auth/logout",
                     "/api/mapas/capa/**" 
                 ).permitAll()
                 

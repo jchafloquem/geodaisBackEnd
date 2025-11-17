@@ -28,14 +28,15 @@ public class ServicioConfiguracionService {
         }
     }
 
-    public String verificarYObtenerUrlBase() {
+    @SuppressWarnings("null")
+	public String verificarYObtenerUrlBase() {
         String urlBase = getUrlMapaCultivos(); 
         try {
             webClient.head()
                 .uri(urlBase)
                 .retrieve()
                 .toBodilessEntity()
-                .block(); // Se usa block para mantener la sincronicidad del método original
+                .block(); 
             return urlBase;            
         } catch (Exception e) {
             throw new RuntimeException(

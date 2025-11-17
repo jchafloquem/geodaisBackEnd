@@ -9,4 +9,10 @@ import lombok.Setter;
 public class LogoutRequest {
 	@NotBlank(message = "El campo 'login' es obligatorio para cerrar la sesión.")
     private String login;
+	
+	public String getLogin() {
+        return login;
+    }
+
+
 }

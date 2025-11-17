@@ -24,6 +24,7 @@ public class MapProxyController {
     }
 
     
+    @SuppressWarnings("null")
     private String buildArcGISUrl(String baseUrlArcGIS, HttpServletRequest request, boolean isQueryEndpoint) {
     
         Map<String, String[]> parameterMap = request.getParameterMap();
@@ -52,6 +53,8 @@ public class MapProxyController {
         return builder.build().toUriString(); 
     }
 
+    
+	@SuppressWarnings("null")
     @GetMapping("/capa/{layerId}") 
     public ResponseEntity<String> proxyLayerBase(
             @PathVariable int layerId,
@@ -60,23 +63,15 @@ public class MapProxyController {
         try {
     
             String urlBase = configService.getUrlMapaCultivos(); 
-
     
             String baseUrlArcGIS = String.format("%s/%d", urlBase, layerId);
-            
     
             String finalArcGISUrl = buildArcGISUrl(baseUrlArcGIS, request, false); 
 
             System.out.println("DEBUG: Llamando a ArcGIS para metadatos (Oculto): " + finalArcGISUrl);
-
     
-            ResponseEntity<String> response = this.restTemplate.getForEntity(
-                finalArcGISUrl, 
-                String.class
-            );
-
-    
-            return response;
+            ResponseEntity<String> response = this.restTemplate.getForEntity(finalArcGISUrl, String.class);
+            return ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders()).body(response.getBody());
 
         } catch (Exception e) {
             System.err.println("Error en proxyLayerBase (Metadatos): " + e.getMessage());
@@ -85,8 +80,8 @@ public class MapProxyController {
                 .body("{\"error\": \"Error interno al obtener metadatos: " + e.getMessage() + "\"}");
         }
     }
-
-    
+  
+    @SuppressWarnings("null")
     @GetMapping("/capa/{layerId}/query")
     public ResponseEntity<String> proxyQuery(
             @PathVariable int layerId,
@@ -95,23 +90,15 @@ public class MapProxyController {
         try {
     
             String urlBase = configService.getUrlMapaCultivos(); 
-
     
             String baseUrlArcGIS = String.format("%s/%d/query", urlBase, layerId);
-            
     
             String finalArcGISUrl = buildArcGISUrl(baseUrlArcGIS, request, true);
 
             System.out.println("DEBUG: Llamando a ArcGIS (Oculto): " + finalArcGISUrl);
 
-    
-            ResponseEntity<String> response = this.restTemplate.getForEntity( 
-                finalArcGISUrl, 
-                String.class
-            );
-
-    
-            return response;
+            ResponseEntity<String> response = this.restTemplate.getForEntity(finalArcGISUrl, String.class);
+            return ResponseEntity.status(response.getStatusCode()).headers(response.getHeaders()).body(response.getBody());
 
         } catch (Exception e) {
             System.err.println("Error en proxyQuery: " + e.getMessage());

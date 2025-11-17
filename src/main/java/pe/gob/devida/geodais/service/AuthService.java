@@ -35,7 +35,9 @@ public class AuthService {
         this.webClient = webClientBuilder.build(); 
     }
 
-    @Transactional
+    
+	@SuppressWarnings("null")
+	@Transactional
     public AuthResponse authenticate(AuthRequest request) {
         
         ServiceAuthConfig config = configService.getConfig("AUTENTICACION_SIGA");
@@ -104,9 +106,12 @@ public class AuthService {
         return response;
     }
     
-    @Transactional
+    
+	@SuppressWarnings("unused")
+	@Transactional
     public void logout(String login) {
-        
+    	
+		String uppercaseLogin = (login != null) ? login.toUpperCase() : null;
     	logger.info("Iniciando proceso de logout para el usuario: {}", login);
 
             Optional<UserSession> activeSession = userSessionRepository.findByLoginAndFechaHoraSalidaIsNull(login);
